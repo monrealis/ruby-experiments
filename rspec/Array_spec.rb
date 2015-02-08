@@ -1,5 +1,4 @@
 require 'rspec'
-require 'rspec/autorun'
 
 describe 'Contains method' do
   before do
