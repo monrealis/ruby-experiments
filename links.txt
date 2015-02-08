@@ -1,0 +1,3 @@
+http://rspec.info/blog/2012/06/rspecs-new-expectation-syntax/
+http://blog.teamtreehouse.com/an-introduction-to-rspec
+http://guides.rubygems.org/
