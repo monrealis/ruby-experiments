@@ -4,7 +4,7 @@ include REXML
 module XmlVisLib
   class XmlVisualizer
     def initialize(xml)
-      @document = Document.new(xml)
+      @document = Document.new xml
     end
 
     def visualize
@@ -15,29 +15,30 @@ module XmlVisLib
   end
 
   class ElementsCollector
+    attr_reader :items
+
     def initialize(root)
       @items=[]
       @root = root
     end
 
     def collect
-      @root.children.each do |el|
-        iterate el
-      end
+      iterate_children(@root)
       self
-    end
-
-    def items
-      @items
     end
 
     private
 
-    def iterate(element)
-      @items << element.name
-      element.children.each do |el|
+    def iterate_children(parent)
+      parent.children.each do |el|
         iterate el
       end
     end
+
+    def iterate(element)
+      @items << element.name
+      iterate_children(element)
+    end
   end
 end
+
