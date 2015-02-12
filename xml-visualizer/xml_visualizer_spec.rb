@@ -28,6 +28,13 @@ describe 'XML visualizer visualization' do
     parse
     expect(visualize).to eq('root')
   end
+
+  it 'should return all elements, each element on a new line' do
+    pending
+    @xml = '<root><one /><two /></root>'
+    parse
+    expect(visualize).to eq('root\none\ntwo')
+  end
 end
 
 def visualize
