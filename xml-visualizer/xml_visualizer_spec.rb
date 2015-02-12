@@ -30,9 +30,9 @@ describe 'XML visualizer visualization' do
   end
 
   it 'should return all elements, each element on a new line' do
-    @xml = '<root><one /><two /></root>'
+    @xml = '<root><one><two /></one><three /></root>'
     parse
-    expect(visualize).to eq('root\none\ntwo')
+    expect(visualize).to eq('root\none\ntwo\nthree')
   end
 end
 
