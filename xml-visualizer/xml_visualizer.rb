@@ -8,27 +8,36 @@ module XmlVisLib
     end
 
     def visualize
-      c = ElementsCollector.new (@document.children)
+      c = ElementsCollector.new @document
       elements = c.collect.items
       elements.join '\n'
     end
   end
 
   class ElementsCollector
-    def initialize(elements)
+    def initialize(root)
       @items=[]
-      @elements = elements
+      @root = root
     end
 
     def collect
-      @elements.each do |el|
-        @items << el.name
+      @root.children.each do |el|
+        iterate el
       end
       self
     end
 
     def items
       @items
+    end
+
+    private
+
+    def iterate(element)
+      @items << element.name
+      element.children.each do |el|
+        iterate el
+      end
     end
   end
 end
