@@ -29,6 +29,18 @@ describe 'XML visualizer visualization' do
     expect(visualize).to eq('root')
   end
 
+  it 'should handle element with namespace and without prefix' do
+    @xml = '<root xmlns="urn:eu.vytenis.test:test" />'
+    parse
+    expect(visualize).to eq('root')
+  end
+
+  it 'should handle element with namespace and prefix' do
+    @xml = '<t:root xmlns:t="urn:eu.vytenis.test:test" />'
+    parse
+    expect(visualize).to eq('root')
+  end
+
   it 'should return all elements, each element on a new line' do
     @xml = '<root><one><two /></one><three /></root>'
     parse
