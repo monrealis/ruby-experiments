@@ -5,6 +5,7 @@ include XmlVisLib
 describe 'XML visualizer construction' do
   before do
     @xml = '<root />'
+    @indent = 0
   end
 
   it 'should parse valid XML' do
@@ -21,6 +22,7 @@ end
 describe 'XML visualizer visualization' do
   before do
     @xml = '<root />'
+    @indent = 0
   end
 
   it 'should return root element name if root is the only element' do
@@ -46,6 +48,13 @@ describe 'XML visualizer visualization' do
     parse
     expect(visualize).to eq('root\none\ntwo\nthree')
   end
+
+  it 'should return all elements with indentation if indentation is not 0' do
+    @indent = 2
+    @xml = '<root><one><two /></one><three /></root>'
+    parse
+    expect(visualize).to eq('root\n  one\n    two\n  three')
+  end
 end
 
 def visualize
@@ -54,4 +63,5 @@ end
 
 def parse
   @visualizer = XmlVisualizer.new @xml
+  @visualizer.indent =@indent
 end

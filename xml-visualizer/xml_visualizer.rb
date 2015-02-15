@@ -5,12 +5,22 @@ module XmlVisLib
   class XmlVisualizer
     def initialize(xml)
       @document = Document.new xml
+      @indent = 0
     end
 
     def visualize
       c = ElementsCollector.new @document
-      elements = c.collect.items.map { |i| i.name }
+      elements = c.collect.items.map { |i| i.format_name prefix }
       elements.join '\n'
+    end
+
+    def indent=(indent)
+      @indent = indent
+    end
+
+    private
+    def prefix
+      ' ' * @indent
     end
   end
 
@@ -51,6 +61,10 @@ module XmlVisLib
 
     def name
       @element.name
+    end
+
+    def format_name(prefix)
+      "#{prefix * level}#{name}"
     end
   end
 end
