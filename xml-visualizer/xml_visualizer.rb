@@ -9,7 +9,7 @@ module XmlVisLib
 
     def visualize
       c = ElementsCollector.new @document
-      elements = c.collect.items
+      elements = c.collect.items.map { |i| i.name }
       elements.join '\n'
     end
   end
@@ -23,21 +23,34 @@ module XmlVisLib
     end
 
     def collect
-      iterate_children(@root)
+      iterate_children(@root, 0)
       self
     end
 
     private
 
-    def iterate_children(parent)
+    def iterate_children(parent, level)
       parent.children.each do |el|
-        iterate el
+        iterate el, level
       end
     end
 
-    def iterate(element)
-      @items << element.name
-      iterate_children(element)
+    def iterate(element, level)
+      @items << ElementItem.new(element, level)
+      iterate_children(element, level + 1)
+    end
+  end
+
+  class ElementItem
+    attr_reader :element, :level
+
+    def initialize(element, level)
+      @element = element
+      @level = level
+    end
+
+    def name
+      @element.name
     end
   end
 end
