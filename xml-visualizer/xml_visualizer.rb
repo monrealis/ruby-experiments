@@ -63,8 +63,19 @@ module XmlVisLib
       @element.name
     end
 
+    def attributes
+      array = []
+      @element.attributes.each do |name, _|
+        array << ('@' + name) unless name.start_with?('xmlns')
+      end
+      array.join ' '
+    end
+
     def format_name(prefix)
-      "#{prefix * level}#{name}"
+      attr = attributes
+      puts attr
+      attr = ' ' + attr if attr.size > 0
+      "#{prefix * level}#{name}#{attr}"
     end
   end
 end

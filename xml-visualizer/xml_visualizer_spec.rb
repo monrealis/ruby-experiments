@@ -31,6 +31,12 @@ describe 'XML visualizer visualization' do
     expect(visualize).to eq('root')
   end
 
+  it 'should visualize attribute name' do
+    @xml = '<root attr="value"/>'
+    parse
+    expect(visualize).to eq('root @attr')
+  end
+
   it 'should handle element with namespace and without prefix' do
     @xml = '<root xmlns="urn:eu.vytenis.test:test" />'
     parse
