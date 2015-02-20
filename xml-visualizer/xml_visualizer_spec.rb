@@ -32,9 +32,9 @@ describe 'XML visualizer visualization' do
   end
 
   it 'should visualize attribute name' do
-    @xml = '<root attr="value"/>'
+    @xml = '<root attr1="value" attr2="value"/>'
     parse
-    expect(visualize).to eq('root @attr')
+    expect(visualize).to eq('root @attr1 @attr2')
   end
 
   it 'should handle element with namespace and without prefix' do
@@ -47,6 +47,12 @@ describe 'XML visualizer visualization' do
     @xml = '<t:root xmlns:t="urn:eu.vytenis.test:test" />'
     parse
     expect(visualize).to eq('root')
+  end
+
+  it 'should handle attribute with prefix' do
+    @xml = '<root xmlns:t="urn:eu.vytenis.test:test" t:attr="value" />'
+    parse
+    expect(visualize).to eq('root @attr')
   end
 
   it 'should return all elements, each element on a new line' do

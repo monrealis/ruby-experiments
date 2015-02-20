@@ -71,8 +71,9 @@ module XmlVisLib
 
     def attributes
       array = []
-      @element.attributes.each do |name, _|
-        array << '@' + name unless name.start_with? 'xmlns'
+      @element.attributes.each_attribute do |attr|
+        name = attr.name
+        array << '@' + name unless attr.prefix == 'xmlns' || attr.expanded_name == 'xmlns'
       end
       array.join ' '
     end
