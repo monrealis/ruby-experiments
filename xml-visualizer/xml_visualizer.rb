@@ -38,7 +38,6 @@ module XmlVisLib
     end
 
     private
-
     def iterate_children(parent, level)
       parent.children.each do |el|
         iterate el, level
@@ -59,6 +58,13 @@ module XmlVisLib
       @level = level
     end
 
+    def format_name(prefix)
+      attr = attributes
+      attr = ' ' + attr if attr.size > 0
+      "#{prefix * level}#{name}#{attr}"
+    end
+
+    private
     def name
       @element.name
     end
@@ -66,16 +72,9 @@ module XmlVisLib
     def attributes
       array = []
       @element.attributes.each do |name, _|
-        array << ('@' + name) unless name.start_with?('xmlns')
+        array << '@' + name unless name.start_with? 'xmlns'
       end
       array.join ' '
-    end
-
-    def format_name(prefix)
-      attr = attributes
-      puts attr
-      attr = ' ' + attr if attr.size > 0
-      "#{prefix * level}#{name}#{attr}"
     end
   end
 end
